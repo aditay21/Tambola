@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "902555062890",
+    "project_id": "tambola-3bf91",
+    "storage_bucket": "tambola-3bf91.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:902555062890:android:1620b896d2b6f29c4a3013",
+        "android_client_info": {
+          "package_name": "com.aditechnology.tambola"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "902555062890-v5u5pa1flba7ru9fnk0gge66idln0jkl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDiaNO5_o-80GF3-N8nkOGfFSV1yd3sVDQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "902555062890-v5u5pa1flba7ru9fnk0gge66idln0jkl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
