@@ -2,6 +2,7 @@ package com.aditechnology.tambola;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.speech.tts.TextToSpeech;
@@ -28,6 +29,7 @@ import com.google.android.gms.ads.RequestConfiguration;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.gms.ads.interstitial.InterstitialAd;
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -64,6 +66,7 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
         MobileAds.initialize((Context) this, (OnInitializationCompleteListener) initializationStatus -> {
 
         });
+        FirebaseAnalytics mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         mAdView = findViewById(R.id.adView);
 
         AdRequest adRequest = new AdRequest.Builder().build();
@@ -111,6 +114,8 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
         this.f47t1 = new TextToSpeech(getApplicationContext(), i1 -> {
             if (i1 == 0) {
                 if (MainActivity.this.f47t1.isLanguageAvailable(Locale.US) == 0) {
+                    MainActivity.this.f47t1.setLanguage(Locale.US);
+                }else{
                     MainActivity.this.f47t1.setLanguage(Locale.US);
                 }
             } else if (i1 == -1) {
@@ -244,7 +249,12 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
             int numericValue2 = Character.getNumericValue(c2);
             if (!this.switch1.isChecked()) {
                 TextToSpeech textToSpeech = this.f47t1;
-                textToSpeech.speak(RequestConfiguration.MAX_AD_CONTENT_RATING_UNSPECIFIED + numericValue, 0, (HashMap) null);
+              //  textToSpeech.speak(RequestConfiguration.MAX_AD_CONTENT_RATING_UNSPECIFIED + numericValue, 0, (HashMap) null);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    textToSpeech.speak(String.valueOf(numericValue),TextToSpeech.QUEUE_FLUSH,null,null);
+                } else {
+                    textToSpeech.speak(String.valueOf(numericValue), TextToSpeech.QUEUE_FLUSH, null);
+                }
                 if (i > 9) {
                     speakSecond(numericValue2, random);
                 } else {
@@ -258,14 +268,22 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
             this.adapter.updateView(random);
             return;
         }
-        this.coinTv.setText("Game Over");
+        this.lastValue.setText("");
+
+        this.coinTv.setText("Game\nOver");
     }
 
     private void speakSecond(final int i, final int i2) {
         new Handler().postDelayed(() -> {
             if (!MainActivity.this.switch1.isChecked()) {
                 TextToSpeech textToSpeech = MainActivity.this.f47t1;
-                textToSpeech.speak(RequestConfiguration.MAX_AD_CONTENT_RATING_UNSPECIFIED + i, 0, (HashMap) null);
+               // textToSpeech.speak(RequestConfiguration.MAX_AD_CONTENT_RATING_UNSPECIFIED + i, 0, (HashMap) null);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    textToSpeech.speak(String.valueOf(i),TextToSpeech.QUEUE_FLUSH,null,null);
+                } else {
+                    textToSpeech.speak(String.valueOf(i), TextToSpeech.QUEUE_FLUSH, null);
+                }
+
             }
             MainActivity.this.speakFinal(i2);
         }, 1000);
@@ -276,7 +294,14 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
         new Handler().postDelayed(() -> {
             if (!MainActivity.this.switch1.isChecked()) {
                 TextToSpeech textToSpeech = MainActivity.this.f47t1;
-                textToSpeech.speak(RequestConfiguration.MAX_AD_CONTENT_RATING_UNSPECIFIED + (i + 1), 0, (HashMap) null);
+               // textToSpeech.speak(RequestConfiguration.MAX_AD_CONTENT_RATING_UNSPECIFIED + (i + 1), 0, (HashMap) null);
+                int n = i+1;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    textToSpeech.speak(String.valueOf(n),TextToSpeech.QUEUE_FLUSH,null,null);
+                } else {
+                    textToSpeech.speak(String.valueOf(n), TextToSpeech.QUEUE_FLUSH, null);
+                }
+
             }
             MainActivity.this.isSpeaking = false;
             MainActivity.this.clicktext.setText("Click Here");

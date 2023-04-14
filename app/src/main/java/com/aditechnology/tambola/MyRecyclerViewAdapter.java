@@ -33,13 +33,20 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
 
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
         if (this.isSelected.get(i)) {
+            viewHolder.myTextView.setTextColor(ContextCompat.getColor(viewHolder.
+                    myTextView.getContext(),R.color.white));
             viewHolder.layout.setBackgroundColor(ContextCompat.getColor(viewHolder.layout.getContext(), R.color.colorAccent));
         } else if (Build.VERSION.SDK_INT >= 16) {
+            viewHolder.myTextView.setTextColor(ContextCompat.getColor(viewHolder.
+                    myTextView.getContext(),R.color.black));
             viewHolder.layout.setBackground(ContextCompat.getDrawable(viewHolder.layout.getContext(), R.drawable.border));
         } else {
+            viewHolder.myTextView.setTextColor(ContextCompat.getColor(viewHolder.
+                    myTextView.getContext(),R.color.black));
             viewHolder.layout.setBackgroundResource(R.drawable.border);
         }
         viewHolder.myTextView.setText(this.mData[i]);
+
     }
 
     public int getItemCount() {
