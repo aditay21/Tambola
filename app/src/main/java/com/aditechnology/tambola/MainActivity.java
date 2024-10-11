@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
     final int min = 0;
     /* access modifiers changed from: private */
     public Switch switch1;
-    private InterstitialAd mInterstitialAd;
+    private InterstitialAd mInterstitialAd; //Infolancers01
     /* renamed from: t1 */
     TextToSpeech f47t1;
     private int mTotalRestartCount;

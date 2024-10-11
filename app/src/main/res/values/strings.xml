@@ -8,14 +8,27 @@
     <string name="previous">Previous</string>
 
     <string name="hello_first_fragment">Hello first fragment</string>
+
     <string name="ads_main_screen_ads">ca-app-pub-2786039813382028/1224947954</string>
     <string name="ads_full_screen_ads">ca-app-pub-2786039813382028/6621555921</string>
+    <string name="optional_screen_ads">ca-app-pub-2786039813382028/8356409922</string>
+    <string name="ticket_screen_ads">ca-app-pub-2786039813382028/8167911507</string>
+
+
+
+
 
     <string name="ads_full_screen_ads_dummy">ca-app-pub-3940256099942544/1033173712</string>
     <string name="ads_main_screen_ads_dummy">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="optional_screen_ads_dummy">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="ticket_screen_ads_dummy">ca-app-pub-3940256099942544/6300978111</string>
+
 
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
 
+    <string name="play_coin">Play game</string>
+    <string name="tickets">Ticket Window</string>
+    <string name="info">Dear Players,
 
-
+We kindly ask you to download the app and generate your ticket directly on your mobile device. This will ensure a smooth and efficient experience for all participants.</string>
 </resources>

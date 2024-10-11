@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:padding="4dp"
+    android:background="#bdc3c7"
+    android:layout_height="match_parent">
+
+    <Switch
+        android:id="@+id/lock_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:padding="4dp"
+        android:textColor="@color/black"
+        android:text="Lock The Screen"
+
+       app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/unLockStartTimeButton" />
+
+    <Button
+        android:id="@+id/lockStartTimeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:textColor="@color/black"
+        android:text="Lock Game Start Time"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/lockStartTimeText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:layout_marginLeft="5dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/lockStartTimeButton"/>
+
+
+    <Button
+        android:id="@+id/unLockStartTimeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:padding="4dp"
+        android:textColor="@color/black"
+        android:text="Stop Game Time "
+        app:layout_constraintTop_toBottomOf="@id/lockStartTimeText"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
+    <Button
+        android:id="@+id/genrateTicket"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:padding="4dp"
+        android:textColor="@color/black"
+        android:text="Add Tickets"
+        app:layout_constraintTop_toBottomOf="@id/unLockStartTimeButton"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
+    <View
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:id="@+id/view"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        app:layout_constraintTop_toBottomOf="@id/genrateTicket"
+        android:background="@color/white"
+        />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/view"
+        app:layout_constraintBottom_toTopOf="@+id/adView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <com.google.android.gms.ads.AdView
+        xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/adView"
+        android:layout_width="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        ads:adUnitId="@string/ticket_screen_ads"
+        ads:adSize="BANNER"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

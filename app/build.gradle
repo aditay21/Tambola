@@ -6,15 +6,16 @@ plugins {
 
 }
 
+
 android {
-    compileSdk 32
+    compileSdk 34
 
     defaultConfig {
         applicationId "com.aditechnology.tambola"
         minSdk 21
-        targetSdk 32
-        versionCode 10
-        versionName "4.2"
+        targetSdk 34
+        versionCode 15
+        versionName "4.7"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -23,14 +24,23 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+
     }
+
+// Compile options
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        // Source compatibility
+        sourceCompatibility JavaVersion.VERSION_11
+        // Target compatibility
+        targetCompatibility JavaVersion.VERSION_11
     }
+
+    // Kotlin options
     kotlinOptions {
-        jvmTarget = '1.8'
+        // JVM target
+        jvmTarget = '11'
     }
+
     buildFeatures {
         viewBinding true
     }
@@ -52,5 +62,9 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+
+
+
+
 
 }
