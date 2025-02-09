@@ -2,6 +2,7 @@ package com.aditechnology.tambola;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -9,6 +10,7 @@ import android.speech.tts.TextToSpeech;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,6 +18,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SwitchCompat;
+import androidx.browser.customtabs.CustomTabsIntent;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -36,11 +40,13 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Random;
 
+
 public class MainActivity extends AppCompatActivity implements MyRecyclerViewAdapter.ItemClickListener {
     MyRecyclerViewAdapter adapter;
     Button button_restart;
     TextView clicktext;
     TextView coinTv;
+    
     boolean isSpeaking;
     int last;
     TextView lastValue;
@@ -48,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
     final int max = 89;
     final int min = 0;
     /* access modifiers changed from: private */
-    public Switch switch1;
+    public SwitchCompat switch1;
     private InterstitialAd mInterstitialAd; //Infolancers01
     /* renamed from: t1 */
     TextToSpeech f47t1;
@@ -63,6 +69,10 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
     public void onCreate(Bundle bundle) {
         super.onCreate(bundle);
         setContentView(R.layout.activity_main);
+
+
+
+
         MobileAds.initialize((Context) this, (OnInitializationCompleteListener) initializationStatus -> {
 
         });
@@ -75,22 +85,22 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
 
 
         this.coinTv = (TextView) findViewById(R.id.coinTv);
-        this.clicktext = (TextView) findViewById(R.id.text);
-
-        TextView textView = (TextView) findViewById(R.id.lastValue);
+        this.clicktext = findViewById(R.id.text);
+       
+        TextView textView = findViewById(R.id.lastValue);
+        textView.setOnClickListener(null);
         this.lastValue = textView;
         textView.setVisibility(View.VISIBLE);
-        this.switch1 = (Switch) findViewById(R.id.switch1);
+        this.switch1 = findViewById(R.id.switch1);
         this.list = new ArrayList<>();
         String[] strArr = new String[90];
         this.button_restart = (Button) findViewById(R.id.button_restart);
         int i = 0;
         while (i <= 89) {
-            StringBuilder sb = new StringBuilder();
-            sb.append(RequestConfiguration.MAX_AD_CONTENT_RATING_UNSPECIFIED);
             int i2 = i + 1;
-            sb.append(i2);
-            strArr[i] = sb.toString();
+            String sb = RequestConfiguration.MAX_AD_CONTENT_RATING_UNSPECIFIED +
+                    i2;
+            strArr[i] = sb;
             i = i2;
         }
         this.button_restart.setOnClickListener(view -> {
@@ -122,6 +132,13 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
                 Toast.makeText(MainActivity.this, "Sorry! Text To Speech failed...", Toast.LENGTH_SHORT).show();
             }
         });
+
+        ImageView gameimg = (ImageView) findViewById(R.id. gmZop);
+        gameimg.setOnClickListener(view -> {
+            final String url = "https://9712.play.gamezop.com/";
+            final CustomTabsIntent customTabsIntent  = new CustomTabsIntent.Builder().build();
+            customTabsIntent.launchUrl(this, Uri.parse(url));
+        });
         clicktext.setOnClickListener(view -> {
             if (!MainActivity.this.isSpeaking) {
                 MainActivity.this.isSpeaking = true;
@@ -140,7 +157,18 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
 
     private void loadAds() {
         AdRequest adRequest = new AdRequest.Builder().build();
-        InterstitialAd.load(this,getString(R.string.ads_full_screen_ads), adRequest,
+        String tokenString = "";
+        if (BuildConfig.DEBUG) {
+            // Debug build
+            tokenString =  getString(R.string.ads_full_screen_ads_dummy);
+            Log.d("BuildType", "Debug Build");
+        } else {
+            // Release build
+            tokenString =  getString(R.string.ads_full_screen_ads);
+            Log.d("BuildType", "Release Build");
+        }
+
+        InterstitialAd.load(this,tokenString, adRequest,
                 new InterstitialAdLoadCallback() {
                     @Override
                     public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
@@ -247,7 +275,7 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
             }
             int numericValue = Character.getNumericValue(c);
             int numericValue2 = Character.getNumericValue(c2);
-            if (!this.switch1.isChecked()) {
+            if (this.switch1.isChecked()) {
                 TextToSpeech textToSpeech = this.f47t1;
               //  textToSpeech.speak(RequestConfiguration.MAX_AD_CONTENT_RATING_UNSPECIFIED + numericValue, 0, (HashMap) null);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -275,7 +303,7 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
 
     private void speakSecond(final int i, final int i2) {
         new Handler().postDelayed(() -> {
-            if (!MainActivity.this.switch1.isChecked()) {
+            if (MainActivity.this.switch1.isChecked()) {
                 TextToSpeech textToSpeech = MainActivity.this.f47t1;
                // textToSpeech.speak(RequestConfiguration.MAX_AD_CONTENT_RATING_UNSPECIFIED + i, 0, (HashMap) null);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -292,7 +320,7 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
     /* access modifiers changed from: private */
     public void speakFinal(final int i) {
         new Handler().postDelayed(() -> {
-            if (!MainActivity.this.switch1.isChecked()) {
+            if (MainActivity.this.switch1.isChecked()) {
                 TextToSpeech textToSpeech = MainActivity.this.f47t1;
                // textToSpeech.speak(RequestConfiguration.MAX_AD_CONTENT_RATING_UNSPECIFIED + (i + 1), 0, (HashMap) null);
                 int n = i+1;

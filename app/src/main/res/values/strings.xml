@@ -31,4 +31,10 @@
     <string name="info">Dear Players,
 
 We kindly ask you to download the app and generate your ticket directly on your mobile device. This will ensure a smooth and efficient experience for all participants.</string>
+    <string name="click_to_play">Click To Play</string>
+    <string name="restart">Restart</string>
+    <string name="click_here">Click Here</string>
+    <string name="speak_numbers">Speak Numbers</string>
+    <string name="ganme_zop">ganme_zop</string>
+    <string name="game_zop">gamezop\n</string>
 </resources>
