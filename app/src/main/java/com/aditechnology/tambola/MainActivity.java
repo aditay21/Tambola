@@ -3,7 +3,6 @@ package com.aditechnology.tambola;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.speech.tts.TextToSpeech;
@@ -11,7 +10,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,7 +34,6 @@ import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 import com.google.firebase.analytics.FirebaseAnalytics;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Locale;
 import java.util.Random;
 
@@ -63,21 +60,17 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
     public void onItemClick(View view, int i) {
     }
 
-    private AdView mAdView;
-
     /* access modifiers changed from: protected */
     public void onCreate(Bundle bundle) {
         super.onCreate(bundle);
         setContentView(R.layout.activity_main);
 
 
-
-
         MobileAds.initialize((Context) this, (OnInitializationCompleteListener) initializationStatus -> {
 
         });
         FirebaseAnalytics mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
-        mAdView = findViewById(R.id.adView);
+        AdView mAdView = findViewById(R.id.adView);
 
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
@@ -113,6 +106,8 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
                 MainActivity.this.adapter.updateAll();
                 MainActivity.this.isSpeaking = false;
                 MainActivity.this.coinTv.setText("click To Start");
+                MainActivity.this.lastValue.setText("");
+                last = 0;
             }
             });
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rvNumbers);
@@ -133,7 +128,7 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
             }
         });
 
-        ImageView gameimg = (ImageView) findViewById(R.id. gmZop);
+        ImageView gameimg = findViewById(R.id. gmZop);
         gameimg.setOnClickListener(view -> {
             final String url = "https://9712.play.gamezop.com/";
             final CustomTabsIntent customTabsIntent  = new CustomTabsIntent.Builder().build();
@@ -206,6 +201,12 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
                                 // Called when fullscreen content is dismissed.
                                 Log.d("TAG", "The ad was dismissed.");
                                 mTotalRestartCount =0;
+                                MainActivity.this.list.clear();
+                                MainActivity.this.adapter.updateAll();
+                                MainActivity.this.isSpeaking = false;
+                                MainActivity.this.coinTv.setText("click To Start");
+                                MainActivity.this.lastValue.setText("");
+                                last = 0;
                             }
 
                             @Override
@@ -278,11 +279,7 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
             if (this.switch1.isChecked()) {
                 TextToSpeech textToSpeech = this.f47t1;
               //  textToSpeech.speak(RequestConfiguration.MAX_AD_CONTENT_RATING_UNSPECIFIED + numericValue, 0, (HashMap) null);
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    textToSpeech.speak(String.valueOf(numericValue),TextToSpeech.QUEUE_FLUSH,null,null);
-                } else {
-                    textToSpeech.speak(String.valueOf(numericValue), TextToSpeech.QUEUE_FLUSH, null);
-                }
+                textToSpeech.speak(String.valueOf(numericValue), TextToSpeech.QUEUE_FLUSH, null, null);
                 if (i > 9) {
                     speakSecond(numericValue2, random);
                 } else {
@@ -306,11 +303,7 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
             if (MainActivity.this.switch1.isChecked()) {
                 TextToSpeech textToSpeech = MainActivity.this.f47t1;
                // textToSpeech.speak(RequestConfiguration.MAX_AD_CONTENT_RATING_UNSPECIFIED + i, 0, (HashMap) null);
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    textToSpeech.speak(String.valueOf(i),TextToSpeech.QUEUE_FLUSH,null,null);
-                } else {
-                    textToSpeech.speak(String.valueOf(i), TextToSpeech.QUEUE_FLUSH, null);
-                }
+                textToSpeech.speak(String.valueOf(i), TextToSpeech.QUEUE_FLUSH, null, null);
 
             }
             MainActivity.this.speakFinal(i2);
@@ -324,11 +317,7 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
                 TextToSpeech textToSpeech = MainActivity.this.f47t1;
                // textToSpeech.speak(RequestConfiguration.MAX_AD_CONTENT_RATING_UNSPECIFIED + (i + 1), 0, (HashMap) null);
                 int n = i+1;
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    textToSpeech.speak(String.valueOf(n),TextToSpeech.QUEUE_FLUSH,null,null);
-                } else {
-                    textToSpeech.speak(String.valueOf(n), TextToSpeech.QUEUE_FLUSH, null);
-                }
+                textToSpeech.speak(String.valueOf(n), TextToSpeech.QUEUE_FLUSH, null, null);
 
             }
             MainActivity.this.isSpeaking = false;
@@ -337,11 +326,11 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
     }
 
     private int getRandom() {
-        int nextInt = new Random().nextInt(90) + 0;
-        if (this.list.contains(Integer.valueOf(nextInt))) {
+        int nextInt = new Random().nextInt(90);
+        if (this.list.contains(nextInt)) {
             return getRandom();
         }
-        this.list.add(Integer.valueOf(nextInt));
+        this.list.add(nextInt);
         return nextInt;
     }
 }

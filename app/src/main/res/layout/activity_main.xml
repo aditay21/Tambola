@@ -119,7 +119,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        ads:adUnitId="@string/ads_main_screen_ads_dummy"
+        ads:adUnitId="@string/ads_main_screen_ads"
         ads:adSize="BANNER"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
